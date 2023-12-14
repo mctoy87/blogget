@@ -4,6 +4,7 @@ import { generate } from 'random-words';
 import ComponentClass from "./components/componentClass/componentClass";
 import PureComponentClass from './components/pureComponentClass/pureComponentClass';
 import ComponentFunc from './components/componentFunc';
+import Button from './components/Button'
 
 export default class App extends React.Component {
   state = {
@@ -34,6 +35,7 @@ export default class App extends React.Component {
   render() {
     return (
       <header className="App-header">
+      <Button text="Жми меня"/>
         <ComponentClass string={this.state.str}/>
         <PureComponentClass string={this.state.pure}/>
         <ComponentFunc string={this.state.func}/>
