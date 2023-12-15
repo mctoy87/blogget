@@ -1,5 +1,6 @@
 import style from './Header.module.css';
 import Layout from '../Layout';
+<<<<<<< HEAD
 import Logo from './Logo';
 import Search from './Search';
 import Auth from './Auth';
@@ -15,6 +16,14 @@ export const Header = () => {
           <Search/>
           <Auth auth={false}/>
         </div>
+=======
+
+export const Header = () => {
+  return (
+    <header>
+      <Layout>
+        Привет
+>>>>>>> 3dd58f0aeb6adc285c4140aac22fc00daac6de84
       </Layout>
     </header>
     )
