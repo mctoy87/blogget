@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class PureComponentClass extends React.PureComponent {
   // typeComponent = 'Class';
@@ -23,6 +24,10 @@ export default class PureComponentClass extends React.PureComponent {
       //   <button onClick={this.logged}>Component</button>
       // </div>
       <p>{this.props.string}</p>
-    )
+    );
   }
 }
+
+PureComponentClass.propTypes = {
+  string: PropTypes.string,
+};

@@ -1,10 +1,11 @@
 import React from 'react';
-import { generate } from 'random-words';
+import {generate} from 'random-words';
 
-import ComponentClass from "./components/componentClass/componentClass";
-import PureComponentClass from './components/pureComponentClass/pureComponentClass';
+import ComponentClass from './components/componentClass/componentClass';
+import PureComponentClass
+  from './components/pureComponentClass/pureComponentClass';
 import ComponentFunc from './components/componentFunc';
-import Button from './components/Button'
+import Button from './components/Button';
 
 export default class App extends React.Component {
   state = {
@@ -16,31 +17,29 @@ export default class App extends React.Component {
 
   componentDidMount() {
     setInterval(() => {
-      if(this.state.count % 2) {
+      if (this.state.count % 2) {
         this.setState({
           count: this.state.count + 1,
           str: generate(),
-        })        
+        });
       } else {
         this.setState({
           count: this.state.count + 1,
           str: generate(),
           pure: generate(),
-        }) 
+        });
       }
-
-    }, 3000)
+    }, 3000);
   }
 
   render() {
     return (
       <header className="App-header">
-      <Button text="Жми меня"/>
+        <Button text="Жми меня"/>
         <ComponentClass string={this.state.str}/>
         <PureComponentClass string={this.state.pure}/>
         <ComponentFunc string={this.state.func}/>
       </header>
     );
   }
-  
 }

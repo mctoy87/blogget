@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class ComponentClass extends React.Component {
   // typeComponent = 'Class';
@@ -23,6 +24,10 @@ export default class ComponentClass extends React.Component {
       //   <button onClick={this.logged}>Component</button>
       // </div>
       <p>{this.props.string}</p>
-    )
+    );
   }
 }
+
+ComponentClass.propTypes = {
+  string: PropTypes.string,
+};
