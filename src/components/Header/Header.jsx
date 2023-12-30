@@ -4,7 +4,8 @@ import Logo from './Logo';
 import Search from './Search';
 import Auth from './Auth';
 import Heading from './Heading';
- 
+
+// eslint-disable-next-line arrow-body-style
 export const Header = () => {
   return (
     <header className={style.header}>
