@@ -1,14 +1,18 @@
 import style from './Post.module.css';
-import notphoto from './img/notphoto.jpg';
+// import notphoto from './img/notphoto.jpg';
 import PropTypes from 'prop-types';
-import formatDate from '../../../../utils/formDate';
+// import formatDate from '../../../../utils/formDate';
+import Time from './Time/Time';
+import {Rating} from './Rating/Rating';
+import {UserPhoto} from './UserPhoto/UserPhoto';
 
 export const Post = ({postData}) => {
   const {title, author, ups, date} = postData;
+  console.log('date: ', date);
 
   return (
     <li className={style.post}>
-      <img className={style.img} src={notphoto} alt={title} />
+      <UserPhoto title={title} />
 
       <div className={style.content}>
         <h2 className={style.title}>
@@ -19,13 +23,9 @@ export const Post = ({postData}) => {
         <a className={style.linkAuthor} href="#author">{author}</a>
       </div>
 
-      <div className={style.rating}>
-        <button className={style.up} aria-label='Увеличить рейтинг'/>
-        <p className={style.ups}>{ups}</p>
-        <button className={style.down} aria-label='Уменьшить рейтинг'/>
-      </div>
+      <Rating ups={ups} />
 
-      <time className={style.date} dateTime={date}>{formatDate(date)}</time>
+      <Time date={date} />
     </li>
   );
 };

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export const List = () => {
   const postData = {
     thumbnail: '',
-    title: 'Title',
+    title: 'Title Title Title Title Title Title Title Title Title Title Title',
     author: 'Nickname',
     // рейтинг
     ups: 24,

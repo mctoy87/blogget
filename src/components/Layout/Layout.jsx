@@ -10,7 +10,7 @@ export const Layout = ({children}) => (
 Layout.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.number,
+    PropTypes.object,
     PropTypes.array,
   ]),
 };
