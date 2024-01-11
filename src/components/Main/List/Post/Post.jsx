@@ -8,7 +8,6 @@ import {UserPhoto} from './UserPhoto/UserPhoto';
 
 export const Post = ({postData}) => {
   const {title, author, ups, date} = postData;
-  console.log('date: ', date);
 
   return (
     <li className={style.post}>
@@ -55,5 +54,6 @@ export const Post = ({postData}) => {
 };
 
 Post.propTypes = {
-  postData: PropTypes.object,
+  // postData: PropTypes.object,
+  postData: PropTypes.array,
 };
