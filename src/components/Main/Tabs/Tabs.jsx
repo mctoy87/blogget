@@ -73,3 +73,9 @@ Tabs.propTypes = {
   setList: PropTypes.func,
   addItem: PropTypes.func,
 };
+
+Tabs.propTypes = {
+  list: PropTypes.array,
+  setList: PropTypes.func,
+  addItem: PropTypes.func,
+};
