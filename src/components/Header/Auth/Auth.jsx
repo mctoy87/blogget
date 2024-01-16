@@ -1,20 +1,24 @@
 import style from './Auth.module.css';
 import PropTypes from 'prop-types';
-import {ReactComponent as AuthSvg} from './img/login.svg';
+import {ReactComponent as LoginIcon} from './img/login.svg';
+import {urlAuth} from '../../../api/auth';
+import {Text} from '../../../UI/Text';
 
 // eslint-disable-next-line arrow-body-style
-export const Auth = ({auth}) => {
+export const Auth = ({token}) => {
   return (
-    <button className={style.button}>
-      {auth ? (
-        auth
+    <div className={style.container}>
+      {token ? (
+        token
       ) : (
-        <AuthSvg className={style.svg}/>
+        <Text As='a' href={urlAuth}>
+          <LoginIcon className={style.svg}/>
+        </Text>
       )}
-    </button>
+    </div>
   );
 };
 
 Auth.propTypes = {
-  auth: PropTypes.bool,
+  token: PropTypes.string,
 };
