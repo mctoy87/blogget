@@ -6,8 +6,9 @@ import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
 import {URL_API} from '../../../api/const';
 
-export const Auth = ({token}) => {
+export const Auth = ({token, delToken}) => {
   const [auth, setAuth] = useState({});
+  const [isShowLogout, setIsShowLogout] = useState(false);
 
   useEffect(() => {
     if (!token) return;
@@ -31,7 +32,9 @@ export const Auth = ({token}) => {
   return (
     <div className={style.container}>
       {auth.name ? (
-        <button className={style.btn}>
+        <button className={style.btn}
+          onClick={() => setIsShowLogout(!isShowLogout)}
+        >
           <img
             className={style.img}
             src={auth.img}
@@ -44,10 +47,24 @@ export const Auth = ({token}) => {
           <LoginIcon className={style.svg}/>
         </Text>
       )}
+      {isShowLogout && (
+        <Text
+          As='button'
+          className={style.logout}
+          color='white'
+          onCLick={() => {
+            delToken();
+            console.log('delToken: ', delToken);
+          }}
+        >
+          Выйти
+        </Text>
+      )}
     </div>
   );
 };
 
 Auth.propTypes = {
   token: PropTypes.string,
+  delToken: PropTypes.func,
 };
