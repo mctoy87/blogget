@@ -16,3 +16,4 @@ searchPArams.append('redirect_uri', REDIRECT_URI);
 searchPArams.append('scope', SCOPE);
 
 export const urlAuth = `${URL_AUTH}${searchPArams.toString()}`;
+console.log('urlAuth: ', urlAuth);

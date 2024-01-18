@@ -13,6 +13,8 @@ export const Auth = ({token, delToken}) => {
 
   useEffect(() => {
     if (!token) {
+      console.log(auth.name);
+      console.dir(auth);
       if (auth.name) setAuth({});
       if (isShowLogout) setIsShowLogout(false);
       return;
@@ -23,7 +25,15 @@ export const Auth = ({token, delToken}) => {
         Authorization: `bearer ${token}`,
       },
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        if (response.status === 401) {
+          delToken();
+          throw new Error(response.status);
+        }
+      })
       .then(({name, icon_img: iconImg}) => {
         const img = iconImg.replace(/\?.*$/, '');
         setAuth({name, img});
