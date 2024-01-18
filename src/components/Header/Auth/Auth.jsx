@@ -5,13 +5,18 @@ import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
 import {URL_API} from '../../../api/const';
+import {Logout} from './Logout/Logout';
 
 export const Auth = ({token, delToken}) => {
   const [auth, setAuth] = useState({});
   const [isShowLogout, setIsShowLogout] = useState(false);
 
   useEffect(() => {
-    if (!token) return;
+    if (!token) {
+      if (auth.name) setAuth({});
+      if (isShowLogout) setIsShowLogout(false);
+      return;
+    }
 
     fetch(`${URL_API}/api/v1/me`, {
       headers: {
@@ -48,17 +53,7 @@ export const Auth = ({token, delToken}) => {
         </Text>
       )}
       {isShowLogout && (
-        <Text
-          As='button'
-          className={style.logout}
-          color='white'
-          onCLick={() => {
-            delToken();
-            console.log('delToken: ', delToken);
-          }}
-        >
-          Выйти
-        </Text>
+        <Logout delToken={delToken}></Logout>
       )}
     </div>
   );
