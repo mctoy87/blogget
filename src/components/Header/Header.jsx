@@ -4,25 +4,17 @@ import Logo from './Logo';
 import Search from './Search';
 import Auth from './Auth';
 import Heading from './Heading';
-import PropTypes from 'prop-types';
 
-// eslint-disable-next-line arrow-body-style
-export const Header = ({token, delToken}) => {
-  return (
-    <header className={style.header}>
-      <Layout>
-        <div className={style.gridContainer}>
-          <Logo/>
-          <Heading text='Главная'/>
-          <Search/>
-          <Auth token={token} delToken={delToken}/>
-        </div>
-      </Layout>
-    </header>
-  );
-};
+export const Header = () => (
+  <header className={style.header}>
+    <Layout>
+      <div className={style.gridContainer}>
+        <Logo/>
+        <Heading text='Главная'/>
+        <Search/>
+        <Auth/>
+      </div>
+    </Layout>
+  </header>
+);
 
-Header.propTypes = {
-  token: PropTypes.string,
-  delToken: PropTypes.func,
-};
