@@ -1,69 +1,47 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import style from './Auth.module.css';
 import PropTypes from 'prop-types';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
-import {URL_API} from '../../../api/const';
-import {Logout} from './Logout/Logout';
+import {useAuth} from '../../../hooks/useAuth';
 
 export const Auth = ({token, delToken}) => {
-  const [auth, setAuth] = useState({});
+  const [auth, clearAuth] = useAuth(token);
   const [isShowLogout, setIsShowLogout] = useState(false);
 
-  useEffect(() => {
-    if (!token) {
-      console.log(auth.name);
-      console.dir(auth);
-      if (auth.name) setAuth({});
-      if (isShowLogout) setIsShowLogout(false);
-      return;
-    }
+  const getOut = () => {
+    setIsShowLogout(!isShowLogout);
+  };
 
-    fetch(`${URL_API}/api/v1/me`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        if (response.status === 401) {
-          delToken();
-          throw new Error(response.status);
-        }
-      })
-      .then(({name, icon_img: iconImg}) => {
-        const img = iconImg.replace(/\?.*$/, '');
-        setAuth({name, img});
-      })
-      .catch((err) => {
-        console.error(err);
-        setAuth({});
-      });
-  }, [token]);
+  const logOut = () => {
+    delToken();
+    clearAuth();
+  };
 
   return (
     <div className={style.container}>
       {auth.name ? (
-        <button className={style.btn}
-          onClick={() => setIsShowLogout(!isShowLogout)}
-        >
-          <img
-            className={style.img}
-            src={auth.img}
-            title={auth.name}
-            alt={`Аватар ${auth.name}`}
-          />
-        </button>
+        <>
+          <button className={style.btn}
+            onClick={() => setIsShowLogout(getOut)}
+          >
+            <img
+              className={style.img}
+              src={auth.img}
+              title={auth.name}
+              alt={`Аватар ${auth.name}`}
+            />
+            <Text>{auth.name}</Text>
+          </button>
+          {isShowLogout && (
+            <button className={style.logout} onClick={logOut}>Выйти</button>
+          )}
+        </>
       ) : (
         <Text className={style.authLink} As='a' href={urlAuth}>
           <LoginIcon className={style.svg}/>
         </Text>
-      )}
-      {isShowLogout && (
-        <Logout delToken={delToken}></Logout>
       )}
     </div>
   );
