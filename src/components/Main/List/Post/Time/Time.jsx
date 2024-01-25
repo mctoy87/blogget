@@ -9,5 +9,5 @@ const Time = ({date}) => (
 export default Time;
 
 Time.propTypes = {
-  date: PropTypes.string,
+  date: PropTypes.number,
 };

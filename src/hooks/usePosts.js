@@ -1,14 +1,12 @@
-import {useEffect} from 'react';
+import {useEffect, useState, useContext} from 'react';
 
 import {URL_API} from '../api/const';
-// import {tokenContext} from '../context/tokenContext';
-import {useToken} from './useToken';
+import {tokenContext} from '../context/tokenContext';
 
 export const usePosts = () => {
-  const [token] = useToken();
-  // const {token} = useContext(tokenContext);
-  console.log('token: ', token);
-  // const [posts, setPosts] = useState({});
+  const {token} = useContext(tokenContext);
+  const [posts, setPosts] = useState([]);
+
 
   useEffect(() => {
     if (!token) return;
@@ -23,11 +21,27 @@ export const usePosts = () => {
         }
         return response.json();
       })
-      .then(({count, show}) => {
-        console.log(count);
+      .then(({data}) => {
+        const array = [];
+        data.children.map((item) => {
+          const {
+            title,
+            author,
+            id,
+            ups,
+            thumbnail,
+            url,
+            created: date,
+          } = item.data;
+
+          array.push({title, author, id, ups, thumbnail, url, date});
+        });
+        setPosts(array);
       })
       .catch((err) => {
         console.error(err);
       });
   }, [token]);
+
+  return [posts, setPosts];
 };
