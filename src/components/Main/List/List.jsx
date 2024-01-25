@@ -1,6 +1,9 @@
 import style from './List.module.css';
 import Post from './Post';
 import PropTypes from 'prop-types';
+import {useEffect, useState} from 'react';
+import {useToken} from '../../../hooks/useToken';
+import {URL_API} from '../../../api/const';
 
 
 export const List = () => {
@@ -46,6 +49,38 @@ export const List = () => {
       id: '234'
     },
   ];
+
+  // const {token} = useContext(tokenContext);
+  const [token] = useToken();
+  console.log('token: ', token);
+  const [posts, setPosts] = useState({});
+
+  useEffect(() => {
+    if (!token) return;
+    fetch(`${URL_API}/best`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    })
+      .then(response => {
+        if (response.status === 401) {
+          throw new Error(response.status);
+        }
+        return response.json();
+      })
+      .then(({data}) => {
+        console.log(data);
+        data.children.map((item) => {
+          const title = item.data.title;
+          console.log('title: ', title);
+        });
+        setPosts({children: 'POST$!!!'});
+        console.log(posts);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [token]);
 
   return (
     <ul className={style.list}>
