@@ -9,11 +9,11 @@ import {Text} from '../../../../UI/Text';
 import {ReactComponent as DeleteSvg} from './img/delete.svg';
 
 export const Post = ({postData}) => {
-  const {title, author, ups, date} = postData;
+  const {title, author, ups, date, thumbnail} = postData;
 
   return (
     <li className={style.post}>
-      <UserPhoto title={title} />
+      <UserPhoto title={title} thumbnail={thumbnail}/>
 
       <div className={style.content}>
         <Text As="h2" className={style.title}>
