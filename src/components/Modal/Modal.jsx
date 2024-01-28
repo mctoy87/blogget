@@ -5,7 +5,7 @@ import Markdown from 'markdown-to-jsx';
 import ReactDOM from 'react-dom';
 import {useEffect, useRef} from 'react';
 
-export const Modal = ({title, author, markdown, closeModal}) => {
+export const Modal = ({closeModal}) => {
   const overlayRef = useRef(null);
   const closeModalRef = useRef(null);
 
@@ -36,7 +36,7 @@ export const Modal = ({title, author, markdown, closeModal}) => {
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
-        <h2 className={style.title}>{title}</h2>
+        <h2 className={style.title}>title</h2>
         <div className={style.conent}>
           <Markdown options={{
             overrides: {
@@ -47,10 +47,10 @@ export const Modal = ({title, author, markdown, closeModal}) => {
               },
             },
           }}>
-            {markdown}
+            markdown
           </Markdown>
         </div>
-        <p className={style.author}>{author}</p>
+        <p className={style.author}>author</p>
         <button className={style.close} ref={closeModalRef}>
           <CloseIcon/>
         </button>
@@ -65,4 +65,5 @@ Modal.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
   markdown: PropTypes.string,
+  closeModal: PropTypes.func,
 };

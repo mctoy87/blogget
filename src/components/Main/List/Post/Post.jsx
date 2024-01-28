@@ -7,13 +7,13 @@ import {ReactComponent as DeleteSvg} from './img/delete.svg';
 import {Content} from './Content/Content';
 
 export const Post = ({postData}) => {
-  const {title, author, ups, markdown, date, thumbnail} = postData;
+  const {title, author, ups, date, thumbnail, id} = postData;
 
   return (
     <li className={style.post}>
       <UserPhoto title={title} thumbnail={thumbnail}/>
 
-      <Content title={title} author={author} markdown={markdown}></Content>
+      <Content title={title} author={author} id={id}></Content>
 
       <Rating ups={ups} />
 
