@@ -29,12 +29,13 @@ export const usePosts = () => {
             author,
             id,
             ups,
+            selftext: markdown,
             thumbnail,
             url,
             created: date,
           } = item.data;
 
-          array.push({title, author, id, ups, thumbnail, url, date});
+          array.push({title, author, id, ups, markdown, thumbnail, url, date});
         });
         setPosts(array);
       })
