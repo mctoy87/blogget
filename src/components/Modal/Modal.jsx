@@ -7,18 +7,29 @@ import {useEffect, useRef} from 'react';
 
 export const Modal = ({title, author, markdown, closeModal}) => {
   const overlayRef = useRef(null);
+  const closeModalRef = useRef(null);
 
   const handleClick = e => {
     const target = e.target;
-    if (target === overlayRef.current) {
+
+    if (
+      // закрывает модалку при клике на оверлей
+      target === overlayRef.current ||
+      // закрывает модалку при клике на крестик
+      closeModalRef.current.contains(target) ||
+      // закрывает модалку при клике на Esc
+      e.code === 'Escape'
+    ) {
       closeModal();
     }
   };
 
   useEffect(() => {
     document.addEventListener('click', handleClick);
+    window.addEventListener('keydown', handleClick);
     return () => {
       document.removeEventListener('click', handleClick);
+      window.removeEventListener('keydown', handleClick);
     };
   }, []);
 
@@ -40,7 +51,7 @@ export const Modal = ({title, author, markdown, closeModal}) => {
           </Markdown>
         </div>
         <p className={style.author}>{author}</p>
-        <button className={style.close}>
+        <button className={style.close} ref={closeModalRef}>
           <CloseIcon/>
         </button>
       </div>
