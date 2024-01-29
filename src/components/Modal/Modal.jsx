@@ -4,10 +4,14 @@ import PropTypes from 'prop-types';
 import Markdown from 'markdown-to-jsx';
 import ReactDOM from 'react-dom';
 import {useEffect, useRef} from 'react';
+import {useCommentsData} from '../../hooks/useCommentsData';
 
-export const Modal = ({closeModal}) => {
+export const Modal = ({closeModal, id}) => {
+  console.log('id: ', id);
   const overlayRef = useRef(null);
   const closeModalRef = useRef(null);
+  const [commentsData] = useCommentsData(id);
+  console.log('dataComments: ', commentsData);
 
   const handleClick = e => {
     const target = e.target;
@@ -62,8 +66,5 @@ export const Modal = ({closeModal}) => {
 
 
 Modal.propTypes = {
-  title: PropTypes.string,
-  author: PropTypes.string,
-  markdown: PropTypes.string,
   closeModal: PropTypes.func,
 };
