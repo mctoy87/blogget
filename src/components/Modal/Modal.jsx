@@ -1,11 +1,11 @@
 import style from './Modal.module.css';
 import {ReactComponent as CloseIcon} from './img/close.svg';
 import PropTypes from 'prop-types';
-import Markdown from 'markdown-to-jsx';
 import ReactDOM from 'react-dom';
 import {useEffect, useRef, useState} from 'react';
 import {useCommentsData} from '../../hooks/useCommentsData';
 import Comments from './Comments';
+import FormComment from './FormComment';
 
 export const Modal = ({closeModal, id}) => {
   console.log('id: ', id);
@@ -39,14 +39,6 @@ export const Modal = ({closeModal, id}) => {
       closeModal();
     }
   };
-
-  const getComments = (comments) => {
-    comments.map(item => item.body);
-  };
-
-  if (hasDataPost) {
-    getComments(comments);
-  }
 
   useEffect(() => {
     document.addEventListener('click', handleClick);
@@ -83,21 +75,8 @@ export const Modal = ({closeModal, id}) => {
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
         {hasDataPost && (<h2 className={style.title}>{post.title}</h2>)}
-        <div className={style.content}>
-          <Markdown options={{
-            overrides: {
-              a: {
-                props: {
-                  target: '_blank',
-                },
-              },
-            },
-          }}>
-            markdown
-          </Markdown>
-          {hasDataPost && (<p>{getComments(comments)}</p>)}
-        </div>
         {hasDataPost && (<p className={style.author}>{post.author}</p>)}
+        {hasDataPost && (<FormComment/>)}
         {hasDataPost && (<Comments comments={comments}></Comments>)}
         <button className={style.close} ref={closeModalRef}>
           <CloseIcon/>
