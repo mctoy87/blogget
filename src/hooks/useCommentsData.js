@@ -7,7 +7,9 @@ export const useCommentsData = (id) => {
   const {token} = useContext(tokenContext);
   const [commentsData, setCommentsData] = useState([]);
 
-  useEffect(() => {
+  const getComments = () => {
+    console.log('Loading message...');
+
     fetch(`${URL_API}/comments/${id}`, {
       headers: {
         Authorization: `bearer ${token}`,
@@ -40,7 +42,12 @@ export const useCommentsData = (id) => {
       .catch((err) => {
         console.error(err);
       });
+  };
+
+  useEffect(() => {
+    getComments();
   }, []);
+
   return [commentsData];
 };
 

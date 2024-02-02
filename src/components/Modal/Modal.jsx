@@ -3,15 +3,27 @@ import {ReactComponent as CloseIcon} from './img/close.svg';
 import PropTypes from 'prop-types';
 import Markdown from 'markdown-to-jsx';
 import ReactDOM from 'react-dom';
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useCommentsData} from '../../hooks/useCommentsData';
+import Comments from './Comments';
 
 export const Modal = ({closeModal, id}) => {
   console.log('id: ', id);
   const overlayRef = useRef(null);
   const closeModalRef = useRef(null);
   const [commentsData] = useCommentsData(id);
+  // const [commentsData] = useState(false);
+  const [post, comments] = commentsData;
+  console.log('comments: ', comments);
   console.log('dataComments: ', commentsData);
+
+
+  const [hasDataPost, setHasDataPost] = useState(!!commentsData.length);
+  // const [title, setTitle] = useState('');
+
+  console.log('hasDataPost: ', hasDataPost);
+  // setHasDataPost(!!commentsData.length);
+
 
   const handleClick = e => {
     const target = e.target;
@@ -28,6 +40,14 @@ export const Modal = ({closeModal, id}) => {
     }
   };
 
+  const getComments = (comments) => {
+    comments.map(item => item.body);
+  };
+
+  if (hasDataPost) {
+    getComments(comments);
+  }
+
   useEffect(() => {
     document.addEventListener('click', handleClick);
     window.addEventListener('keydown', handleClick);
@@ -37,11 +57,33 @@ export const Modal = ({closeModal, id}) => {
     };
   }, []);
 
+  // useEffect(() => {
+  //   (async () => {
+  //     const [commentsData] = await useCommentsData(id);
+  //     setCommentsData(commentsData);
+  //     console.log('commentsData: ', commentsData);
+  //   });
+
+  //   setCommentsData(commentsData);
+  //   const [post] = commentsData;
+  // }, [commentsData.length]);
+
+  useEffect(() => {
+    setHasDataPost(!!commentsData.length);
+    // if (!hasDataPost) return;
+    // if (hasDataPost) {
+    //   const [post] = commentsData;
+    //   const {title} = post;
+    //   setTitle(title);
+    // }
+    // console.log('title: ', title);
+  }, [commentsData.length]);
+
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
-        <h2 className={style.title}>title</h2>
-        <div className={style.conent}>
+        {hasDataPost && (<h2 className={style.title}>{post.title}</h2>)}
+        <div className={style.content}>
           <Markdown options={{
             overrides: {
               a: {
@@ -53,8 +95,10 @@ export const Modal = ({closeModal, id}) => {
           }}>
             markdown
           </Markdown>
+          {hasDataPost && (<p>{getComments(comments)}</p>)}
         </div>
-        <p className={style.author}>author</p>
+        {hasDataPost && (<p className={style.author}>{post.author}</p>)}
+        {hasDataPost && (<Comments comments={comments}></Comments>)}
         <button className={style.close} ref={closeModalRef}>
           <CloseIcon/>
         </button>
