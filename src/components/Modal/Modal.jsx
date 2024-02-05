@@ -74,14 +74,14 @@ export const Modal = ({closeModal, id}) => {
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
-        {hasDataPost && (
+        {hasDataPost ? (
           <>
             <h2 className={style.title}>{post.title}</h2>
             <p className={style.author}>{post.author}</p>
             <FormComment />
             <Comments comments={comments}/>
           </>
-        )}
+        ) : <h3>Загрузка данных...</h3> }
         <button className={style.close} ref={closeModalRef}>
           <CloseIcon/>
         </button>
