@@ -1,11 +1,24 @@
 import style from './FormComment.module.css';
+import {useDispatch, useSelector} from 'react-redux';
 
 export const FormComment = () => {
   console.log('style: ', style);
+
+  const value = useSelector(state => state.comment);
+  const dispatch = useDispatch();
+
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    console.log('formDataGET: ', formData.get('pushComment'));
+
+    console.log(value);
+  };
+
+  const handleChange = (e) => {
+    dispatch({
+      type: 'UPDATE_COMMENT',
+      comment: e.target.value,
+    });
   };
 
   return (
@@ -13,10 +26,10 @@ export const FormComment = () => {
       <form onSubmit={(e) => handleFormSubmit(e)}>
         {/* <label htmlFor="pushComment">Отправить комментарий</label> */}
         <textarea
-          id="pushComment"
-          name="pushComment"
           rows="5"
           cols="33"
+          value={value}
+          onChange={handleChange}
         >
         </textarea>
 
