@@ -1,9 +1,9 @@
-import style from './FormComment.module.css';
+// import style from './FormComment.module.css';
 import {useDispatch, useSelector} from 'react-redux';
+import {updateComment} from '../../../srore';
+
 
 export const FormComment = () => {
-  console.log('style: ', style);
-
   const value = useSelector(state => state.comment);
   const dispatch = useDispatch();
 
@@ -15,10 +15,7 @@ export const FormComment = () => {
   };
 
   const handleChange = (e) => {
-    dispatch({
-      type: 'UPDATE_COMMENT',
-      comment: e.target.value,
-    });
+    dispatch(updateComment(e.target.value));
   };
 
   return (

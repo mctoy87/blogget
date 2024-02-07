@@ -17,7 +17,7 @@ export const Comments = (data) => {
 
 
   return (
-    <div style={style.data}>
+    <ul style={style.data}>
       {comments.length ? (<h3>Комментарии</h3>) : (<h3>Нет комментариев</h3>)}
       {comments.map((item) => (
         <>
@@ -29,6 +29,6 @@ export const Comments = (data) => {
           <Time key={item.created} date={item.created_utc} />
         </>
       ))}
-    </div>
+    </ul>
   );
 };
