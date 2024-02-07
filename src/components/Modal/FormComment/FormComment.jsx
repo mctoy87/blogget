@@ -1,6 +1,6 @@
 // import style from './FormComment.module.css';
 import {useDispatch, useSelector} from 'react-redux';
-import {updateComment} from '../../../srore';
+import {updateComment} from '../../../store';
 
 
 export const FormComment = () => {
