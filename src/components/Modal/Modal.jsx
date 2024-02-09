@@ -12,18 +12,13 @@ export const Modal = ({closeModal, id}) => {
   const overlayRef = useRef(null);
   const closeModalRef = useRef(null);
   const [commentsData] = useCommentsData(id);
-  // const [commentsData] = useState(false);
   const [post, comments] = commentsData;
   console.log('comments: ', comments);
   console.log('dataComments: ', commentsData);
 
 
   const [hasDataPost, setHasDataPost] = useState(!!commentsData.length);
-  // const [title, setTitle] = useState('');
-
   console.log('hasDataPost: ', hasDataPost);
-  // setHasDataPost(!!commentsData.length);
-
 
   const handleClick = e => {
     const target = e.target;
@@ -49,26 +44,8 @@ export const Modal = ({closeModal, id}) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const [commentsData] = await useCommentsData(id);
-  //     setCommentsData(commentsData);
-  //     console.log('commentsData: ', commentsData);
-  //   });
-
-  //   setCommentsData(commentsData);
-  //   const [post] = commentsData;
-  // }, [commentsData.length]);
-
   useEffect(() => {
     setHasDataPost(!!commentsData.length);
-    // if (!hasDataPost) return;
-    // if (hasDataPost) {
-    //   const [post] = commentsData;
-    //   const {title} = post;
-    //   setTitle(title);
-    // }
-    // console.log('title: ', title);
   }, [commentsData.length]);
 
   return ReactDOM.createPortal(
