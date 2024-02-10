@@ -11,7 +11,6 @@ import Authloader from './Authloader';
 export const Auth = () => {
   const [isShowLogout, setIsShowLogout] = useState(false);
   const [auth, loading, clearAuth] = useAuth();
-
   const dispatch = useDispatch();
 
   const getOut = () => {
@@ -30,9 +29,7 @@ export const Auth = () => {
         <Authloader />
       ) : auth.name ? (
         <>
-          <button className={style.btn}
-            onClick={() => setIsShowLogout(getOut)}
-          >
+          <button className={style.btn} onClick={getOut}>
             <img
               className={style.img}
               src={auth.img}

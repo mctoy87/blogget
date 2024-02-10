@@ -1,12 +1,15 @@
+import {usePosts} from '../../../hooks/usePosts';
 import style from './List.module.css';
 import Post from './Post';
 import PropTypes from 'prop-types';
-import {useContext} from 'react';
-import {postContext} from '../../../context/postContext';
+import {useStore} from 'react-redux';
 
 
 export const List = () => {
-  const {posts} = useContext(postContext);
+  const store = useStore();
+  const posts1 = store.getState().posts.data;
+  console.log('posts1: ', posts1);
+  const [posts] = usePosts();
 
   return (
     <ul className={style.list}>
