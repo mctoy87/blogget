@@ -1,6 +1,5 @@
 import style from './Comments.module.css';
 import Time from '../../Main/List/Post/Time/Time';
-import {generateRandomId} from '../../../utils/generateRandomId';
 
 
 export const Comments = (data) => {
@@ -21,9 +20,8 @@ export const Comments = (data) => {
       {comments.map((item) => (
         <li key={item.id}>
           {item.body}
-          {<p key={generateRandomId()}
-            className={style.author}>{item.author}</p>}
-          <Time key={item.created} date={item.created_utc} />
+          {<p className={style.author}>{item.author}</p>}
+          <Time date={item.created_utc} />
         </li>
       ))}
     </ul>

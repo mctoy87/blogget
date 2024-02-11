@@ -2,13 +2,12 @@ import {usePosts} from '../../../hooks/usePosts';
 import style from './List.module.css';
 import Post from './Post';
 import PropTypes from 'prop-types';
-import {useStore} from 'react-redux';
+// import {useStore} from 'react-redux';
 
 
 export const List = () => {
-  const store = useStore();
-  const posts1 = store.getState().posts.data;
-  console.log('posts1: ', posts1);
+  // const store = useStore();
+  // const posts1 = store.getState().posts.data;
   const [posts] = usePosts();
 
   return (

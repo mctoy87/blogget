@@ -30,7 +30,6 @@ export const postsRequestAsync = () => (dispatch, getState) => {
     },
   })
     .then(({data}) => {
-      console.log('data.data: ', data.data);
       const array = [];
       data.data.children.map((item) => {
         const {
@@ -45,7 +44,6 @@ export const postsRequestAsync = () => (dispatch, getState) => {
         } = item.data;
         array.push({title, author, id, ups, markdown, thumbnail, url, date});
       });
-      console.log('array: ', array);
       dispatch(postsRequestSuccess(array));
     })
     .catch((err) => {

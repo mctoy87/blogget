@@ -18,8 +18,8 @@ export const Auth = () => {
   };
 
   const logOut = () => {
-    dispatch(deleteToken());
     clearAuth();
+    dispatch(deleteToken());
     console.log('auth: ', auth);
   };
 
