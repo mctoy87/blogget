@@ -9,10 +9,7 @@ export const Comments = (data) => {
     </div>
   );
 
-  console.log('data: ', data);
   const comments = data.comments;
-  console.log('comments: ', comments);
-
 
   return (
     <ul style={style.data}>

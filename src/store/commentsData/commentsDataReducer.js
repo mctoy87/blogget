@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   status: 'loading',
-  data: {},
+  data: [],
   error: '',
 };
 

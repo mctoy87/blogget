@@ -6,19 +6,15 @@ import {useEffect, useRef, useState} from 'react';
 import {useCommentsData} from '../../hooks/useCommentsData';
 import Comments from './Comments';
 import FormComment from './FormComment';
+import Authloader from '../../UI/Authloader';
 
 export const Modal = ({closeModal, id}) => {
-  console.log('id: ', id);
   const overlayRef = useRef(null);
   const closeModalRef = useRef(null);
-  const [commentsData] = useCommentsData(id);
-  const [post, comments] = commentsData;
-  console.log('comments: ', comments);
-  console.log('dataComments: ', commentsData);
-
+  const [commentsData, status, error] = useCommentsData(id);
 
   const [hasDataPost, setHasDataPost] = useState(!!commentsData.length);
-  console.log('hasDataPost: ', hasDataPost);
+  const [post, comments] = commentsData;
 
   const handleClick = e => {
     const target = e.target;
@@ -51,14 +47,21 @@ export const Modal = ({closeModal, id}) => {
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
-        {hasDataPost ? (
+        {hasDataPost &&
+          status === 'loaded' ? (
           <>
             <h2 className={style.title}>{post.title}</h2>
             <p className={style.author}>{post.author}</p>
             <FormComment />
             <Comments comments={comments}/>
           </>
-        ) : <h3>Загрузка данных...</h3> }
+        ) : hasDataPost && status === 'error' ?
+          <h3>Ошибка {error}</h3> :
+          <h3>
+            Загрузка данных...
+            <Authloader />
+          </h3>
+        }
         <button className={style.close} ref={closeModalRef}>
           <CloseIcon/>
         </button>
