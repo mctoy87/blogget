@@ -1,6 +1,7 @@
 export const setToken = (token) => {
   localStorage.setItem('bearer', token);
 };
+
 export const getToken = () => {
   let token = '';
   if (location.pathname.includes('/auth')) {
@@ -10,7 +11,7 @@ export const getToken = () => {
   }
 
   if (localStorage.getItem('bearer')) {
-    setToken(localStorage.getItem('bearer'));
+    token = (localStorage.getItem('bearer'));
   }
 
   return token;

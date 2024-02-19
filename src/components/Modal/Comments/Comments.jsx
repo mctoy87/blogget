@@ -11,10 +11,15 @@ export const Comments = (data) => {
 
   const comments = data.comments;
 
+
   return (
     <ul style={style.data}>
-      {comments.length ? (<h3>Комментарии</h3>) : (<h3>Нет комментариев</h3>)}
-      {comments.map((item) => (
+      {comments.length ? (
+        <h3 className={style.title} >Комментарии</h3>
+        ) : (
+          <h3 className={style.title}>Нет комментариев</h3>)
+      }
+      {comments.filter(item => item.body !== '[deleted]').map((item) => (
         <li key={item.id}>
           {item.body}
           {<p className={style.author}>{item.author}</p>}

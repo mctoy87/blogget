@@ -1,0 +1,7 @@
+:not(:last-of-type) .author  {
+    margin-bottom: 15px;
+}
+
+.title {
+    margin-bottom: 20px;
+}
