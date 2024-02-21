@@ -7,10 +7,12 @@ import {useCommentsData} from '../../hooks/useCommentsData';
 import Comments from './Comments';
 import FormComment from './FormComment';
 import Authloader from '../../UI/Authloader';
+import {useNavigate, useParams} from 'react-router-dom';
 
-export const Modal = ({closeModal, id}) => {
+export const Modal = () => {
+  const {id, page} = useParams();
+  const navigate = useNavigate();
   const overlayRef = useRef(null);
-  const closeModalRef = useRef(null);
   const [commentsData, status, error] = useCommentsData(id);
 
   const [hasDataPost, setHasDataPost] = useState(!!commentsData.length);
@@ -22,12 +24,10 @@ export const Modal = ({closeModal, id}) => {
     if (
       // закрывает модалку при клике на оверлей
       target === overlayRef.current ||
-      // закрывает модалку при клике на крестик
-      closeModalRef.current.contains(target) ||
       // закрывает модалку при клике на Esc
       e.code === 'Escape'
     ) {
-      closeModal();
+      navigate(`/category/${page}`);
     }
   };
 
@@ -62,7 +62,11 @@ export const Modal = ({closeModal, id}) => {
             <Authloader />
           </h3>
         }
-        <button className={style.close} ref={closeModalRef}>
+        <button
+          className={style.close}
+          onClick={() => {
+            navigate(`/category/${page}`);
+          }}>
           <CloseIcon/>
         </button>
       </div>

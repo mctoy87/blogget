@@ -19,7 +19,8 @@ export const Comments = (data) => {
         ) : (
           <h3 className={style.title}>Нет комментариев</h3>)
       }
-      {comments.filter(item => item.body !== '[deleted]').map((item) => (
+      {comments.filter(item =>
+        item.body && item.body !== '[deleted]').map((item) => (
         <li key={item.id}>
           {item.body}
           {<p className={style.author}>{item.author}</p>}
