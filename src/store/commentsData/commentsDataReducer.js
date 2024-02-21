@@ -2,7 +2,7 @@ import {
   COMMENTS_DATA_REQUEST,
   COMMENTS_DATA_REQUEST_ERROR,
   COMMENTS_DATA_REQUEST_SUCCESS
-} from './action';
+} from './commentsAction';
 
 const initialState = {
   status: 'loading',

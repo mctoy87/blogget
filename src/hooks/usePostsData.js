@@ -1,11 +1,12 @@
 import {useEffect} from 'react';
 // import {URL_API} from '../api/const';
 import {useSelector, useDispatch} from 'react-redux';
-import {postsRequestAsync} from '../store/posts/action';
+import {postsRequestAsync} from '../store/posts/postsAction';
 
-export const usePosts = () => {
+export const usePostsData = () => {
   const token = useSelector(state => state.tokenReducer.token);
-  const posts = useSelector(state => state.posts.data);
+  console.log('token: ', token);
+  const posts = useSelector(state => state.posts.posts);
   const dispatch = useDispatch();
 
 

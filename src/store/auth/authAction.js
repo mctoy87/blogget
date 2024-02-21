@@ -1,5 +1,5 @@
 import {URL_API} from '../../api/const';
-import {deleteToken} from '../../store/tokenReducer';
+import {deleteToken} from '../tokenReducer';
 import axios from 'axios';
 
 export const AUTH_REQUEST = 'AUTH_REQUEST';
