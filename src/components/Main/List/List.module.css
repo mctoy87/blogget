@@ -9,3 +9,11 @@
 .end {
   flex-basis: 100%;
 }
+
+.morePosts {
+  padding: 10px;
+  min-width: 100px;
+  background-color: rgb(140, 206, 206);
+  border: none;
+  border-radius: 5px;
+}

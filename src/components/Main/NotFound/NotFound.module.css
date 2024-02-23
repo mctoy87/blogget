@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.errorText {
+  font-weight: bold;
+  color: rgba(117, 67, 0, 0.959);
+}
