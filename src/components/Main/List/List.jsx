@@ -10,7 +10,7 @@ import Loader from '../../../UI/Loader';
 
 export const List = () => {
   const postsData = useSelector(state => state.posts.posts);
-  // const postsAfter = useSelector(state => state.posts.after);
+  const postsAfter = useSelector(state => state.posts.after);
   console.log('postsData: ', postsData);
   const loading = useSelector(state => state.posts.loading);
 
@@ -18,16 +18,17 @@ export const List = () => {
   const dispatch = useDispatch();
   const {page} = useParams();
 
-  // const handleClick = (e) => {
-  //   e.preventDefault();
-  //   dispatch(postsRequestAsync());
-  // };
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(postsRequestAsync());
+  };
 
   useEffect(() => {
     dispatch(postsRequestAsync(page));
   }, [page]);
 
   useEffect(() => {
+    if (!endList.current) return;
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         console.log('Обнаружен');
@@ -66,14 +67,18 @@ export const List = () => {
             <Loader/>
           </li>)
         }
-        <li ref={endList} className={style.end}/>
-        {/* {postsData && postsAfter && (postsData.length > 20) && (
-          <button
-            className={style.morePosts}
-            onClick={(e) => handleClick(e)}
-          >Загрузить еще
-          </button>
-        )} */}
+        {
+          (postsData && postsAfter && (postsData.length > 20)) ? (
+            <button
+              className={style.morePosts}
+              onClick={(e) => handleClick(e)}
+            >
+              Загрузить еще
+            </button>
+          ) : (
+            <li ref={endList} className={style.end}/>
+          )
+        }
       </ul>
       <Outlet />
     </>
