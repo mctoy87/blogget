@@ -1,4 +1,4 @@
-// import style from './FormComment.module.css';
+import style from './FormComment.module.css';
 import {useDispatch, useSelector} from 'react-redux';
 import {updateComment} from '../../../store/commentReducer';
 
@@ -20,7 +20,7 @@ export const FormComment = () => {
 
   return (
     <div>
-      <form onSubmit={(e) => handleFormSubmit(e)}>
+      <form className={style.form} onSubmit={(e) => handleFormSubmit(e)}>
         {/* <label htmlFor="pushComment">Отправить комментарий</label> */}
         <textarea
           rows="5"

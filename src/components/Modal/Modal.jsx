@@ -6,7 +6,7 @@ import {useEffect, useRef, useState} from 'react';
 import {useCommentsData} from '../../hooks/useCommentsData';
 import Comments from './Comments';
 import FormComment from './FormComment';
-import Authloader from '../../UI/Authloader';
+import Loader from '../../UI/Loader';
 import {useNavigate, useParams} from 'react-router-dom';
 
 export const Modal = () => {
@@ -59,7 +59,7 @@ export const Modal = () => {
           <h3>Ошибка {error}</h3> :
           <h3>
             Загрузка данных...
-            <Authloader />
+            <Loader />
           </h3>
         }
         <button

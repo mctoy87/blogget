@@ -6,7 +6,7 @@ import {Text} from '../../../UI/Text';
 import {useDispatch} from 'react-redux';
 import {deleteToken} from '../../../store/tokenReducer';
 import {useAuth} from '../../../hooks/useAuth';
-import Authloader from '../../../UI/Authloader';
+import Loader from '../../../UI/Loader';
 
 export const Auth = () => {
   const [isShowLogout, setIsShowLogout] = useState(false);
@@ -26,7 +26,7 @@ export const Auth = () => {
   return (
     <div className={style.container}>
       {loading ? (
-        <Authloader />
+        <Loader />
       ) : auth.name ? (
         <>
           <button className={style.btn} onClick={getOut}>

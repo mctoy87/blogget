@@ -28,6 +28,8 @@ export const Tabs = () => {
 
   const handleResize = () => {
     if (document.documentElement.clientWidth < 768) {
+      // закрываем дропдаун на случай перехода с десктопа на мобилку
+      setIsDropdownOpen(false);
       setIsDropDown(true);
     } else {
       setIsDropDown(false);

@@ -5,33 +5,33 @@ import PropTypes from 'prop-types';
 import {useDispatch, useSelector} from 'react-redux';
 import {postsRequestAsync} from '../../../store/posts/postsAction';
 import {Outlet, useParams} from 'react-router-dom';
-
-let count = 0;
+import Loader from '../../../UI/Loader';
 
 
 export const List = () => {
   const postsData = useSelector(state => state.posts.posts);
+  // const postsAfter = useSelector(state => state.posts.after);
+  console.log('postsData: ', postsData);
+  const loading = useSelector(state => state.posts.loading);
+
   const endList = useRef(null);
   const dispatch = useDispatch();
   const {page} = useParams();
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    dispatch(postsRequestAsync());
-  };
+  // const handleClick = (e) => {
+  //   e.preventDefault();
+  //   dispatch(postsRequestAsync());
+  // };
 
   useEffect(() => {
     dispatch(postsRequestAsync(page));
-    console.log('Клик');
   }, [page]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         console.log('Обнаружен');
-        count++;
-        console.log('count: ', count);
-        if (count <= 3) dispatch(postsRequestAsync());
+        dispatch(postsRequestAsync());
       }
     }, {
       rootMargin: '100px',
@@ -49,18 +49,31 @@ export const List = () => {
   return (
     <>
       <ul className={style.list}>
-        {postsData && (postsData.map(({data}) => (
-          <Post key={data.id} postData={data}/>
-        )))}
+        {loading && (
+          <li className={style.loader}>
+            <p >Загрузка данных...</p>
+            <Loader/>
+          </li>)
+        }
+        {postsData && (
+          postsData.map(({data}) => (
+            <Post key={data.id} postData={data}/>
+          )))
+        }
+        {(postsData.length > 0 && loading) && (
+          <li className={style.loader}>
+            <p >Загрузка данных...</p>
+            <Loader/>
+          </li>)
+        }
         <li ref={endList} className={style.end}/>
-        {(count >= 3) && (
+        {/* {postsData && postsAfter && (postsData.length > 20) && (
           <button
             className={style.morePosts}
             onClick={(e) => handleClick(e)}
-          >
-            Загрузить еще
+          >Загрузить еще
           </button>
-        )}
+        )} */}
       </ul>
       <Outlet />
     </>

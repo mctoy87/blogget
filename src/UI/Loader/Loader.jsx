@@ -1,5 +1,5 @@
 import RingLoader from 'react-spinners/RingLoader';
 
-export const Authloader = () => (
+export const Loader = () => (
   <RingLoader color='#cc6633' css={{display: 'block'}} size={30}/>
 );
