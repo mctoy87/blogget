@@ -13,10 +13,13 @@ export const Modal = () => {
   const {id, page} = useParams();
   const navigate = useNavigate();
   const overlayRef = useRef(null);
-  const [commentsData, status, error] = useCommentsData(id);
+  const [data, status, error] = useCommentsData(id);
 
-  const [hasDataPost, setHasDataPost] = useState(!!commentsData.length);
-  const [post, comments] = commentsData;
+  const [hasDataPost, setHasDataPost] = useState(false);
+  const isDataLoaded = status === 'loaded';
+  const post = data ? data[0] : null;
+  const comments = data ? data[1] : [];
+  // const [hasDataPost, setHasDataPost] = useState(false);
 
   const handleClick = e => {
     const target = e.target;
@@ -41,14 +44,14 @@ export const Modal = () => {
   }, []);
 
   useEffect(() => {
-    setHasDataPost(!!commentsData.length);
-  }, [commentsData.length]);
+    setHasDataPost(!!data && !!data.length);
+  }, [data]);
 
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
         {hasDataPost &&
-          status === 'loaded' ? (
+          isDataLoaded ? (
           <>
             <h2 className={style.title}>{post.title}</h2>
             <p className={style.author}>{post.author}</p>
