@@ -11,6 +11,7 @@ import {End} from './End/End';
 
 export const List = () => {
   const postsData = useSelector(state => state.posts.posts);
+  console.log('postsData: ', postsData);
   const postsAfter = useSelector(state => state.posts.after);
   const loading = useSelector(state => state.posts.loading);
   const dispatch = useDispatch();
@@ -29,8 +30,8 @@ export const List = () => {
             <Loader/>
           </li>)
         }
-        {postsData && (
-          postsData.map(({data}) => (
+        {postsData.children && (
+          postsData.children.map(({data}) => (
             <Post key={data.id} postData={data}/>
           )))
         }
