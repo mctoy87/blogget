@@ -8,51 +8,59 @@ import {Outlet} from 'react-router-dom';
 import Loader from '../../../UI/Loader';
 import {useEffect} from 'react';
 import {End} from './End/End';
+import {postsSlice} from '../../../store/posts/postsSlice';
 
 export const List = () => {
   const postsData = useSelector(state => state.posts.posts);
+  // console.log('postsData: ', postsData);
   const postsAfter = useSelector(state => state.posts.after);
+  // console.log('postsAfter: ', postsAfter);
   const loading = useSelector(state => state.posts.loading);
+  // console.log('loadingLIST: ', loading);
   const dispatch = useDispatch();
   const {page} = useParams();
+  // console.log('pageLIST: ', page);
 
   useEffect(() => {
+    dispatch(postsSlice.actions.changePage({page}));
     dispatch(postsRequestAsync(page));
   }, [page]);
 
   return (
     <>
+      {loading && (
+        <div className={style.loader}>
+          <p >Загрузка данных...</p>
+          <Loader/>
+        </div>)
+      }
       <ul className={style.list}>
-        {loading && (
-          <li className={style.loader}>
-            <p >Загрузка данных...</p>
-            <Loader/>
-          </li>)
-        }
         {postsData && (
           postsData.map(({data}) => (
             <Post key={data.id} postData={data}/>
           )))
         }
-        {(postsData.length > 0 && loading) && (
-          <li className={style.loader}>
-            <p >Загрузка данных...</p>
-            <Loader/>
-          </li>)
-        }
-        {
-          (postsData && postsAfter && (postsData.length > 20)) ? (
+      </ul>
+      {(postsData.length > 0 && loading) && (
+        <div className={style.loader}>
+          <p >Загрузка данных...</p>
+          <Loader/>
+        </div>)
+      }
+      {
+        (postsData && postsAfter && (postsData.length > 20)) ? (
+          <div className={style.btnWrapper}>
             <button
               className={style.morePosts}
               onClick={(e) => dispatch(postsRequestAsync())}
             >
               Загрузить еще
             </button>
-          ) : (
-            <End />
-          )
-        }
-      </ul>
+          </div>
+        ) : (
+          <End />
+        )
+      }
       <Outlet />
     </>
   );

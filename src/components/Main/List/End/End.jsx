@@ -27,6 +27,6 @@ export const End = () => {
   }, [endList.current]);
 
   return (
-    <li ref={endList} className={style.end}/>
+    <div ref={endList} className={style.end}/>
   );
 };
