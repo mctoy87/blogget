@@ -16,14 +16,14 @@ export const List = () => {
   const postsAfter = useSelector(state => state.posts.after);
   // console.log('postsAfter: ', postsAfter);
   const loading = useSelector(state => state.posts.loading);
-  // console.log('loadingLIST: ', loading);
+  const isLast = useSelector(state => state.posts.isLast);
   const dispatch = useDispatch();
   const {page} = useParams();
-  // console.log('pageLIST: ', page);
+
 
   useEffect(() => {
     dispatch(postsSlice.actions.changePage({page}));
-    dispatch(postsRequestAsync(page));
+    dispatch(postsRequestAsync());
   }, [page]);
 
   return (
@@ -58,7 +58,7 @@ export const List = () => {
             </button>
           </div>
         ) : (
-          <End />
+          (!loading && !isLast) && <End />
         )
       }
       <Outlet />
