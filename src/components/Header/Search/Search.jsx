@@ -1,7 +1,8 @@
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import style from './Search.module.css';
-import {searchRequest} from '../../../store/search/searchAction';
+// import {searchRequest} from '../../../store/search/searchAction';
+import {searchRequest} from '../../../store/search/searchSlice';
 
 export const Search = () => {
   const dispatch = useDispatch();
