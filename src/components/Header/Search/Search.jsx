@@ -1,11 +1,27 @@
+import {useState} from 'react';
+import {useDispatch} from 'react-redux';
 import style from './Search.module.css';
+// import {searchRequest} from '../../../store/search/searchAction';
+import {searchRequest} from '../../../store/search/searchSlice';
 
-// eslint-disable-next-line arrow-body-style
 export const Search = () => {
+  const dispatch = useDispatch();
+  const [search, setSearch] = useState('');
+
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+    dispatch(searchRequest(search));
+  };
+
   return (
-    <form className={style.form}>
-      <input className={style.search} type='search' />
-      <button className={style.button}>
+    <form className={style.form} onSubmit={handlerSubmit}>
+      <input
+        className={style.search}
+        type='search'
+        onChange={e => setSearch(e.target.value)}
+        value={search}
+      />
+      <button className={style.button} type='submit'>
         <svg className={style.svg} width="128" height="128" viewBox="0 0 128 128" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <g>
             {/* eslint-disable-next-line max-len*/}

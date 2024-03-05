@@ -20,7 +20,6 @@ export const Auth = () => {
   const logOut = () => {
     clearAuth();
     dispatch(deleteToken());
-    console.log('auth: ', auth);
   };
 
   return (
