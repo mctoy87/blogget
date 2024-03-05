@@ -4,7 +4,7 @@ import {postsRequestAsync} from './postsAction';
 const initialState = {
   posts: [],
   loading: false,
-  error: '',
+  error: null,
   after: '',
   isLast: false,
   page: '',
@@ -26,6 +26,7 @@ export const postsSlice = createSlice({
       state.page = action.payload.page;
       state.after = '';
       state.isLast = false;
+      state.posts = [];
     },
   },
   extraReducers: builder => {
@@ -36,7 +37,7 @@ export const postsSlice = createSlice({
         state.isLast = false;
       })
       .addCase(postsRequestAsync.fulfilled, (state, action) => {
-        state.posts = action.payload.posts.children;
+        state.posts.push(...action.payload.posts.children);
         state.loading = false;
         state.error = '';
         state.after = action.payload.posts.after;
@@ -44,7 +45,7 @@ export const postsSlice = createSlice({
       })
       .addCase(postsRequestAsync.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error;
+        state.error = action.payload;
       });
   }
 });

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {URL_API} from '../../api/const';
-import {postsSlice} from './postsSlice';
+// import {postsSlice} from './postsSlice';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
 // export const postsRequestAsync2 = (newPage) => (dispatch, getState) => {
@@ -52,24 +52,24 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 
 export const postsRequestAsync = createAsyncThunk(
   'posts/fetch',
-  (newPage, {getState, dispatch}) => {
+  (newPage, {getState, dispatch, rejectWithValue}) => {
     const store = getState();
-    let page = store.posts.page;
-    if (newPage) {
-      page = newPage;
-      console.log(`Вызов диспетчера категории ${page}`);
-      dispatch(postsSlice.actions.changePage({page}));
-    }
+    const page = store.posts.page;
+    // console.warn('page: ', page);
+    // console.warn('newPage: ', newPage);
+    // if (newPage) {
+    //   page = newPage;
+    //   console.log(`Вызов диспетчера категории ${page}`);
+    //   dispatch(postsSlice.actions.changePage({page}));
+    // }
 
     const token = store.tokenReducer.token;
     const after = store.posts.after;
     // const loading = store.posts.loading;
     const isLast = store.posts.isLast;
 
-    console.log('Store: ', store);
-
-    if (!page || isLast) return store.posts;
-    console.log('store перед axios: ', store);
+    if (!token || !page || isLast) return rejectWithValue('ERROR ERROR');
+    // console.log('store перед axios: ', store);
 
     return axios(`${URL_API}/${page}?limit=10&${after ? `after=${after}` : ''}`,
       {
@@ -79,21 +79,18 @@ export const postsRequestAsync = createAsyncThunk(
       })
       .then(({data}) => {
         const posts = data.data;
+        if (!after) {
+          // const postData = [...store.posts.posts, ...posts.children];
 
-        if (after) {
-          const postData = [...store.posts.posts, ...posts.children];
-
-          posts.children = postData;
+          // posts.children = postData;
 
           // dispatch(
           //   postsSlice.actions.postsRequestSuccessAfter({posts})
           // );
-
-          return {posts};
-        } else {
           return {posts};
         }
+        return {posts};
       })
-      .catch((error) => ({error: error.toString()}));
+      .catch((error) => rejectWithValue(error.message));
   }
 );
