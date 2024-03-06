@@ -15,15 +15,15 @@ export const searchSlice = createSlice({
   initialState,
   reducers: {
     searchRequest: (state) => {
-      console.log('state: ', state);
       state.error = '';
       state.loading = true;
     },
     searchRequestSuccess: (state, action) => {
-      state.posts = action.payload.posts;
+      console.log('action: ', action);
+      state.posts = action.payload.children;
       state.loading = false;
       state.error = '';
-      state.after = action.payload.posts.after;
+      state.after = action.payload.after;
     },
     searchRequestError: (state, action) => {
       state.loading = false;
